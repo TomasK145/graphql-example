@@ -3,6 +3,8 @@
     public enum Genre
     {
         Krimi,
-        Drama
+        Drama,
+        Horror,
+        Cooking
     }
 }

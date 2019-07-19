@@ -8,8 +8,8 @@ namespace GraphQL.Api.Data.Entities
         public string Name { get; set; }
         public string Surname { get; set; }
         public Address Address { get; set; }
-        public List<Contact> Contacts { get; set; }
-        public List<Book> BorrowedBooks { get; set; }
-        public List<Review> Reviews { get; set; }
+        public ICollection<Contact> Contacts { get; set; }
+        public ICollection<Book> BorrowedBooks { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 }

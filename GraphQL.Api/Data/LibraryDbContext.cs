@@ -15,5 +15,21 @@ namespace GraphQL.Api.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Review> Reviews { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Author>().HasKey(a => a.AuthorId);
+            modelBuilder.Entity<Book>().HasKey(a => a.BookId);
+
+            //Vztah M:N
+            modelBuilder.Entity<AuthorBook>()
+                        .HasKey(ab => new { ab.AuthorId, ab.BookId });
+            modelBuilder.Entity<AuthorBook>().HasOne(ab => ab.Author)
+                                                .WithMany(a => a.CreatedBooks)
+                                                .HasForeignKey(ab => ab.AuthorId);
+            modelBuilder.Entity<AuthorBook>().HasOne(ab => ab.Book)
+                                                .WithMany(b => b.Authors)
+                                                .HasForeignKey(ab => ab.BookId);
+        }
     }
 }

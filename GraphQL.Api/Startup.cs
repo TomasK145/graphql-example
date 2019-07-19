@@ -21,12 +21,20 @@ namespace GraphQL.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, LibraryDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            dbContext.Seed();
+
+            var authors = dbContext.Authors;
+            var books = dbContext.Books;
+            var customers = dbContext.Customers;
+            var reviews = dbContext.Reviews;
+
 
             app.Run(async (context) =>
             {
