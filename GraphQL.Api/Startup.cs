@@ -22,7 +22,8 @@ namespace GraphQL.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IBookRepository, BookRepository>();
-            
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+
 
             services.AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("LibraryDb"));
 

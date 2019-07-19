@@ -17,5 +17,10 @@ namespace GraphQL.Api.Data.Repositories
         {
             return _dbContext.Books.ToListAsync();
         }
+
+        public Task<Book> GetById(int bookId)
+        {
+            return _dbContext.Books.FirstAsync(b => b.BookId.Equals(bookId));
+        }
     }
 }
