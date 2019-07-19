@@ -1,4 +1,4 @@
-﻿namespace GraphQL.Api.Data.Entities
+﻿namespace GraphQL.Api.Data
 {
     public enum Genre
     {
