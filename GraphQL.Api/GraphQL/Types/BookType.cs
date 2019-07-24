@@ -21,6 +21,7 @@ namespace GraphQL.Api.GraphQL.Types
                 resolve: context => authorRepository.GetByBookId(context.Source.BookId)
             );
             Field<BookStatusType>("BookStatus", "Availability of book");
+            Field<ListGraphType<ReviewType>>("Reviews");
         }
     }
 }

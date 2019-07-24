@@ -10,5 +10,6 @@ namespace GraphQL.Api.Data.Repositories
     {
         Task<List<Book>> GetAllAsync();
         Task<Book> GetById(int bookId);
+        Task<List<Book>> GetByAuthorId(int authorId);
     }
 }
