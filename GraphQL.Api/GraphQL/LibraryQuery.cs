@@ -1,16 +1,12 @@
 ﻿using GraphQL.Api.Data.Repositories;
 using GraphQL.Api.GraphQL.Types;
 using GraphQL.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQL.Api.GraphQL
 {
     public class LibraryQuery : ObjectGraphType
     {
-        public LibraryQuery(IBookRepository bookRepository, IAuthorRepository authorRepository)
+        public LibraryQuery(IBookRepository bookRepository, IAuthorRepository authorRepository, ICustomerRepository customerRepository)
         {
             Field<ListGraphType<BookType>>(
                 "books",
@@ -39,6 +35,21 @@ namespace GraphQL.Api.GraphQL
                 {
                     var authorId = context.GetArgument<int>("authorId");
                     return authorRepository.GetById(authorId);
+                }
+            );
+
+            Field<ListGraphType<CustomerType>>(
+                "customers",
+                resolve: context => customerRepository.GetAllAsync()
+            );
+
+            Field<CustomerType>(
+                "customer",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "customerId"}),
+                resolve: context =>
+                {
+                    var customerId = context.GetArgument<int>("customerId");
+                    return customerRepository.GetById(customerId);
                 }
             );
         }

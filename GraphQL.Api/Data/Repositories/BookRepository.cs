@@ -28,6 +28,14 @@ namespace GraphQL.Api.Data.Repositories
                                 .FirstAsync(b => b.BookId.Equals(bookId));
         }
 
+        public Task<List<Book>> GetByListId(List<int> bookIdList)
+        {
+            return _dbContext.Books
+                                .Include(b => b.Reviews)
+                                .Where(b => bookIdList.Contains(b.BookId))
+                                .ToListAsync();
+        }
+
         public Task<List<Book>> GetByAuthorId(int authorId)
         {
             return _dbContext.Books

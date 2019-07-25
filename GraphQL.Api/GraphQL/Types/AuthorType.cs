@@ -14,7 +14,7 @@ namespace GraphQL.Api.GraphQL.Types
             Field<AddressType>("Address");
             Field<ListGraphType<ContactType>>("Contact");
             Field<ListGraphType<BookType>>(
-                "books",
+                "createdBooks",
                 resolve: context => bookRepository.GetByAuthorId(context.Source.AuthorId)
             );
         }

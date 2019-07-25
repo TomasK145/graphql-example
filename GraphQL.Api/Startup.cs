@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GraphQL.Api.Data;
+﻿using GraphQL.Api.Data;
 using GraphQL.Api.Data.Repositories;
 using GraphQL.Api.GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +18,7 @@ namespace GraphQL.Api
         {
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
-
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("LibraryDb"));
 

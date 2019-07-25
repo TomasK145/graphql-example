@@ -1,8 +1,6 @@
 ﻿using GraphQL.Api.Data.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GraphQL.Api.Data
 {
@@ -219,6 +217,8 @@ namespace GraphQL.Api.Data
                     new AuthorBook { Book = bookKucharskaKniha2}
                 }
             };
+
+            customerJanMaly.BorrowedBooks.Add(bookLazar);
 
             dbContext.Authors.Add(authorLarsKepler);
             dbContext.Authors.Add(authorJozefKarika);
