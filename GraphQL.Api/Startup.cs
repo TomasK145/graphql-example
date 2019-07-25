@@ -7,11 +7,20 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace GraphQL.Api
 {
     public class Startup
     {
+        private readonly IConfiguration _config;
+
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -20,7 +29,11 @@ namespace GraphQL.Api
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("LibraryDb"));
+            services.AddDbContext<LibraryDbContext>(options => 
+            {
+                //options.UseInMemoryDatabase("LibraryDb");
+                options.UseSqlServer("Server=tcp:orchardcmsdevservertk.database.windows.net,1433;Initial Catalog=testdbtk;Persist Security Info=False;User ID=orchardcmsdevtk;Password=T_K++@rchARD_C^MS;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            });
 
             //GraphQL
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
@@ -43,11 +56,6 @@ namespace GraphQL.Api
             app.UseGraphQL<LibrarySchema>(); //GraphQL middlewaru
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //middleware pre GraphQL playground
             dbContext.Seed();
-
-            var authors = dbContext.Authors;
-            var books = dbContext.Books;
-            var customers = dbContext.Customers;
-            var reviews = dbContext.Reviews;
         }
     }
 }
