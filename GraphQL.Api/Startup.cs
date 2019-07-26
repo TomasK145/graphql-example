@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using GraphQL.Api.GraphQL.Messaging;
 
 namespace GraphQL.Api
 {
@@ -38,12 +39,14 @@ namespace GraphQL.Api
             //GraphQL
             services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddScoped<LibrarySchema>();
+            services.AddSingleton<CustomerMessageService>();
             services.AddGraphQL(options =>
             {
                 options.ExposeExceptions = true;
             })
             .AddGraphTypes(ServiceLifetime.Scoped)
             .AddDataLoader() //Data Loader --> https://github.com/graphql/dataloader
+            .AddWebSockets() //Web sockets --> pre moznost prace z GraphQL subscriptions
             ;
 
             services.AddCors();
@@ -59,6 +62,9 @@ namespace GraphQL.Api
             }
 
             //GraphQL
+            app.UseWebSockets();
+            app.UseGraphQLWebSockets<LibrarySchema>("/graphql");
+
             app.UseGraphQL<LibrarySchema>(); //GraphQL middlewaru
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //middleware pre GraphQL playground
 

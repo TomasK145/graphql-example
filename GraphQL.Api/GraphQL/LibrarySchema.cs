@@ -8,6 +8,7 @@ namespace GraphQL.Api.GraphQL
         {
             Query = resolver.Resolve<LibraryQuery>();
             Mutation = resolver.Resolve<LibraryMutation>();
+            Subscription = resolver.Resolve<LibrarySubscription>();
         }
     }
 }
