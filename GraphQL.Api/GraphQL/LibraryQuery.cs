@@ -34,6 +34,10 @@ namespace GraphQL.Api.GraphQL
                 resolve: context =>
                 {
                     var authorId = context.GetArgument<int>("authorId");
+                    if (authorId == 1)
+                    {
+                        context.Errors.Add(new ExecutionError("Error author with id = 1"));
+                    }
                     return authorRepository.GetById(authorId);
                 }
             );
