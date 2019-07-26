@@ -45,6 +45,8 @@ namespace GraphQL.Api
             .AddGraphTypes(ServiceLifetime.Scoped)
             .AddDataLoader() //Data Loader --> https://github.com/graphql/dataloader
             ;
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +55,7 @@ namespace GraphQL.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             }
 
             //GraphQL
