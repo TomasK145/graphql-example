@@ -42,7 +42,9 @@ namespace GraphQL.Api
             {
                 options.ExposeExceptions = true;
             })
-            .AddGraphTypes(ServiceLifetime.Scoped);
+            .AddGraphTypes(ServiceLifetime.Scoped)
+            .AddDataLoader() //Data Loader --> https://github.com/graphql/dataloader
+            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +55,10 @@ namespace GraphQL.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            //GraphQL
             app.UseGraphQL<LibrarySchema>(); //GraphQL middlewaru
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //middleware pre GraphQL playground
+
             dbContext.Seed();
         }
     }

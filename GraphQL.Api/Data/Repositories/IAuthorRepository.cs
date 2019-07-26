@@ -1,5 +1,6 @@
 ﻿using GraphQL.Api.Data.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GraphQL.Api.Data.Repositories
@@ -9,5 +10,6 @@ namespace GraphQL.Api.Data.Repositories
         Task<List<Author>> GetAllAsync();
         Task<Author> GetById(int authorId);
         Task<List<Author>> GetByBookId(int bookId);
+        Task<ILookup<int, Author>> GetByBookIdList(IEnumerable<int> bookIdList);
     }
 }

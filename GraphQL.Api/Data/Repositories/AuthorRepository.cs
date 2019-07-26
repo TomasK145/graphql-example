@@ -36,5 +36,11 @@ namespace GraphQL.Api.Data.Repositories
                                 .Where(a => a.CreatedBooks.Any(b => b.BookId.Equals(bookId)))
                                 .ToListAsync();
         }
+
+        public async Task<ILookup<int, Author>> GetByBookIdList(IEnumerable<int> bookIdList)
+        {
+            var authors = await _dbContext.Authors.Where(a => a.CreatedBooks.Any(b => bookIdList.Contains(b.AuthorId))).ToListAsync();
+            return authors.ToLookup(a => a.AuthorId);
+        }
     }
 }
