@@ -33,5 +33,12 @@ namespace GraphQL.Api.Data.Repositories
                                 .Include(c => c.BorrowedBooks)
                                 .FirstAsync(c => c.Id.Equals(customerId));
         }
+
+        public async Task<Customer> AddCustomer(Customer customer)
+        {
+            _dbContext.Customers.Add(customer);
+            await _dbContext.SaveChangesAsync();
+            return customer;
+        }
     }
 }

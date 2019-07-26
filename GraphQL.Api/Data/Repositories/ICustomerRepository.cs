@@ -8,5 +8,6 @@ namespace GraphQL.Api.Data.Repositories
     {
         Task<List<Customer>> GetAllAsync();
         Task<Customer> GetById(int customerId);
+        Task<Customer> AddCustomer(Customer customer);
     }
 }
