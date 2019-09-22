@@ -33,7 +33,7 @@ namespace GraphQL.Api
             services.AddDbContext<LibraryDbContext>(options => 
             {
                 //options.UseInMemoryDatabase("LibraryDb");
-                options.UseSqlServer("Server=tcp:orchardcmsdevservertk.database.windows.net,1433;Initial Catalog=testdbtk;Persist Security Info=False;User ID=orchardcmsdevtk;Password=T_K++@rchARD_C^MS;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                options.UseSqlServer(@"Server=MILL199\SQLEXPRESS;Initial Catalog=graphql_demo;Persist Security Info=False;User ID=orchardadmin;Password=OrcH@rd&^Adm1IN;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
             });
 
             //GraphQL
