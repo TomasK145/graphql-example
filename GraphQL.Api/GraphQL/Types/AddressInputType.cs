@@ -7,7 +7,7 @@ namespace GraphQL.Api.GraphQL.Types
         public AddressInputType()
         {
             Name = "addressInput";
-            Field<NonNullGraphType<StringGraphType>>("country");
+            Field<NonNullGraphType<StringGraphType>>("country", deprecationReason: "Test");
             Field<NonNullGraphType<StringGraphType>>("city");
             Field<NonNullGraphType<StringGraphType>>("street");
             Field<NonNullGraphType<StringGraphType>>("streetNumber");
